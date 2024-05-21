@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSRS Player Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #0066cc;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px; /* Added margin to separate it from the inputs */
+        }
+        button:hover {
+            background-color: #004d99;
+        }
+        select {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #fff;
+            color: #333;
+        }
+        .section-title {
+            margin-top: 20px;
+            color: #0066cc;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let playerCount = 1;
+
+            const form = document.querySelector("form");
+            const addPlayerInput = () => {
+                const label = document.createElement("label");
+                label.setAttribute("for", `player${playerCount}`);
+                label.textContent = `Player ${playerCount}:`;
+                
+                const input = document.createElement("input");
+                input.setAttribute("type", "text");
+                input.setAttribute("id", `player${playerCount}`);
+                input.setAttribute("name", `player${playerCount}`);
+                input.addEventListener("input", handleInput);
+
+                const br = document.createElement("br");
+
+                form.insertBefore(label, form.lastElementChild);
+                form.insertBefore(input, form.lastElementChild);
+                form.insertBefore(br, form.lastElementChild);
+                
+                playerCount++;
+            };
+
+            const handleInput = (event) => {
+                const inputBoxes = document.querySelectorAll("input[type='text']");
+                if (inputBoxes[inputBoxes.length - 1].value.trim() !== "") {
+                    addPlayerInput();
+                }
+            };
+
+            addPlayerInput(); // Add the first input box
+        });
+    </script>
+</head>
+<body>
+    <h1>Compare OSRS Players</h1>
+    <form method="POST">
+        <label for="comparison_type">Comparison Type:</label>
+        <select id="comparison_type" name="comparison_type" required>
+            <option value="compare">Compare</option>
+            <option value="average">Average</option>
+        </select>
+        <br>
+
+        <div class="section-title">Skills</div>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="skill_filter" value="combat"> Combat</label>
+            <label><input type="checkbox" name="skill_filter" value="non_combat"> Non-Combat</label>
+        </div>
+
+        <div class="section-title">Activities</div>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="activities_type" value="other"> Other</label>
+            <label><input type="checkbox" name="activities_type" value="clues"> Clues</label>
+            <label><input type="checkbox" name="activities_type" value="monsters"> Monsters</label>
+            <label><input type="checkbox" name="activities_type" value="raids"> Raids</label>
+        </div>
+
+        <div class="section-title">Tier Groups</div>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="tier_groups" value="yes"> Tier Groups</label>
+            <label><input type="checkbox" name="duke_clan"> Duke Clan</label>
+        </div>
+
+        <br><br>
+        <button type="submit">Compare</button>
+        <br>
+    </form>
+</body>
+</html>

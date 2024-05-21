@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSRS Player Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #0066cc;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #0066cc;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .highlight-green {
+            background-color: green;
+            color: white;
+            border-radius: 50%;
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+        }
+        .highlight-yellow {
+            background-color: yellow;
+            color: black;
+            border-radius: 50%;
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Comparison Between Players</h1>
+    <ul>
+        {% for player in player_names %}
+            <li>{{ player }}</li>
+        {% endfor %}
+    </ul>
+
+    {% if tier_groups %}
+        <h2>Tier Groups</h2>
+        <h3>Highest Total Skill Levels</h3>
+        <ul>
+            {% for player in tier_groups.total_skill %}
+                <li>{{ player.name }}: {{ player.total_level }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Highest Monster Skill Levels</h3>
+        <ul>
+            {% for player in tier_groups.monster_skill %}
+                <li>{{ player.name }}: {{ player.monster_level }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2>Skills</h2>
+    <table>
+        <tr>
+            <th>Skill</th>
+            {% if data.skills[0].compare_type == 'average' %}
+                <th>Average Level</th>
+            {% else %}
+                {% for player in player_names %}
+                    <th>{{ player }} Level</th>
+                {% endfor %}
+            {% endif %}
+        </tr>
+        {% for item in data.skills %}
+        <tr>
+            <td>{{ item.skill }}</td>
+            {% if item.compare_type == 'average' %}
+                <td>{{ item.avg_level }}</td>
+            {% else %}
+                {% set level_counts = {} %}
+                {% for level in item.levels %}
+                    {% set level_counts = level_counts.update({level: level_counts.get(level, 0) + 1}) or level_counts %}
+                {% endfor %}
+                {% set sorted_level_counts = level_counts | dictsort(reverse=True, by='value') %}
+                {% set top_levels = sorted_level_counts[:4] %}
+                {% set top_levels_keys = top_levels | map(attribute='key') %}
+                {% for level in item.levels %}
+                    <td>{{ level }}
+                        {% if level == 99 %}
+                            <span class="highlight-green">★</span>  <!-- Star for level 99 -->
+                        {% elif level in top_levels_keys %}
+                            <span class="highlight-yellow">●</span> <!-- Yellow highlight for top 4 levels -->
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Activities</h2>
+    {% for category, activities in data.activities.items() %}
+        <h3>{{ category }}</h3>
+        <table>
+            <tr>
+                <th>Activity</th>
+                {% if activities[0].compare_type == 'average' %}
+                    <th>Average Score</th>
+                {% else %}
+                    {% for player in player_names %}
+                        <th>{{ player }} Score</th>
+                    {% endfor %}
+                {% endif %}
+            </tr>
+            {% for item in activities %}
+            <tr>
+                <td>{{ item.activity }}</td>
+                {% if item.compare_type == 'average' %}
+                    <td>{{ item.avg_score }}</td>
+                {% else %}
+                    {% set score_counts = {} %}
+                    {% for score in item.scores %}
+                        {% set score_counts = score_counts.update({score: score_counts.get(score, 0) + 1}) or score_counts %}
+                    {% endfor %}
+                    {% set sorted_score_counts = score_counts | dictsort(reverse=True, by='value') %}
+                    {% set top_scores = sorted_score_counts[:4] %}
+                    {% set top_scores_keys = top_scores | map(attribute='key') %}
+                    {% for score in item.scores %}
+                        <td>{{ score }}
+                            {% if score in top_scores_keys %}
+                                <span class="highlight-yellow">●</span> <!-- Yellow highlight for top 4 scores -->
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+</body>
+</html>
