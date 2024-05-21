@@ -26,7 +26,7 @@ To run this project locally, you will need to have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/osrs-player-comparison.git
+   git clone https://github.com/Maremoo2/PlayerLookup.git
    cd osrs-player-comparison
    ```
 
@@ -120,10 +120,11 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ```
 
 ### Notes:
-- Replace `https://github.com/your-username/osrs-player-comparison.git` with the actual URL of your GitHub repository.
 - Make sure to update any specific instructions or details that pertain to your project.
 - Add any additional sections if necessary, such as "Known Issues" or "Future Work".
-Improving code quality involves several aspects, including readability, maintainability, performance, security, and scalability. Here are some suggestions to improve your Flask application code:
+
+-------------------------- ##IMPROVEMENTS-------------------------------
+##Improving code quality involves several aspects, including readability, maintainability, performance, security, and scalability. Here are some suggestions to improve your Flask application code:
 
 ### 1. Code Structure and Organization
 - **Modularize the Code**: Break down the `app.py` into multiple modules to separate concerns, such as routes, models, services, and utilities.
