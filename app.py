@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request
 import requests
 
@@ -180,6 +181,6 @@ def compare_players():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    app.jinja_env.globals.update(max=max)
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
 
