@@ -14,8 +14,15 @@ DUKE_CLAN_MEMBERS = [
     "sallesr2", "strclychaos", "pappa potion", "prof tiddys", "uimayhem x", "kit sunii",
     "markes45", "ev_n", "re 2", "yojizzie", "daimondlv", "j a h m i r", "jerbear2548",
     "gnomenipples", "m r s p3wp3w", "gooberdoo111", "grainesjr", "emzri", "raithnos",
-    "godlikerim", "rutraru", "cbd oil king", "lizardkingv", "luonteri", "dranyur", "maremoo2"
+    "godlikerim", "rutraru", "cbd oil king", "lizardkingv", "luonteri", "dranyur", "maremoo2",
+    "fen rau", "strictlychaos", "mrs p3wp3w", "ayeitzdeabo", "expireduncle", "raithnos",
+    "dranyur", "minty boy900", "cr3sp chompy", "paumal", "k h o", "re 1", "gooberdoo111",
+    "luonteri", "kit sunii", "visit lisboa", "sallesr4", "ev_n", "sallesr2", "maremoo2",
+    "sweeet turds", "mc cheaks69", "credits uim", "hallies", "grainesjr gim", "minnowmalist",
+    "j i b z uim", "i am atomic", "botbuster3k", "utoir", "sallesr4", "tz tok-bigkok",
+    "verrsi uim", "lords uim"
 ]
+
 
 def get_player_data(player_name):
     url = f"https://secure.runescape.com/m=hiscore_oldschool/index_lite.json?player={player_name}"
