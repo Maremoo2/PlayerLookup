@@ -8,7 +8,7 @@ The OSRS Player Comparison is a web application built with Flask that allows use
 ## Features
 
 - Compare multiple OSRS players' skills and activities.
-- Highlight top 4 skill levels and scores.
+- Highlight top 4 skill levels and scores. NOTE: NEEDS TO BE FIXED
 - Indicate players with level 99 skills with a green star.
 - Provide tier groups based on total skill levels and monster skill levels.
 
